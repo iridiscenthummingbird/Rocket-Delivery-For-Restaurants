@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rocket_delivery_rest/providers/category.dart';
+import 'package:rocket_delivery_rest/providers/product.dart';
 import 'package:rocket_delivery_rest/providers/user.dart';
 import 'package:rocket_delivery_rest/screens/dashboard.dart';
 import 'package:rocket_delivery_rest/screens/login.dart';
@@ -11,6 +13,8 @@ void main() async {
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: UserProvider.initialize()),
+        ChangeNotifierProvider.value(value: ProductProvider.initialize()),
+        ChangeNotifierProvider.value(value: CategoryProvider.initialize()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
