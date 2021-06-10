@@ -4,6 +4,7 @@ import 'package:rocket_delivery_rest/providers/user.dart';
 import 'package:rocket_delivery_rest/screens/login.dart';
 import 'package:rocket_delivery_rest/screens/orders.dart';
 import 'package:rocket_delivery_rest/screens/products.dart';
+import 'package:rocket_delivery_rest/screens/settings.dart';
 import 'package:rocket_delivery_rest/services/screen_navigation.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -63,6 +64,13 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
+                    changeScreen(context, SettingsScreen());
+                  },
+                  leading: Icon(Icons.settings),
+                  title: Text("Settings"),
+                ),
+                ListTile(
+                  onTap: () {
                     userProvider.signOut();
                     changeScreen(context, LoginScreen());
                   },
@@ -83,7 +91,9 @@ class DashboardScreen extends StatelessWidget {
                         bottomLeft: Radius.circular(2),
                         bottomRight: Radius.circular(2),
                       ),
-                      child: imageWidget(hasImage: false)),
+                      child: imageWidget(
+                          hasImage: userProvider.hasImage,
+                          url: userProvider.restaurant.image)),
 
                   // fading black
                   Container(

@@ -34,7 +34,6 @@ class ProductProvider with ChangeNotifier {
       String id = Uuid().v1();
       String imageUrl =
           await _uploadImageFile(imageFile: productImage, imageFileName: id);
-      print(price.text.trim());
       Map data = {
         "id": id,
         "name": name.text.trim(),
@@ -47,6 +46,7 @@ class ProductProvider with ChangeNotifier {
         "category": category
       };
       _productServices.createProduct(data: data);
+      //TODO change avgPrice
       return true;
     } catch (e) {
       print(e.toString());
