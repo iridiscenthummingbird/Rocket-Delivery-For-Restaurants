@@ -8,11 +8,10 @@ class OrderServices {
   Future<List<OrderModel>> restaurantOrders({String restaurantId}) async =>
       _firestore
           .collection(collection)
-          .where("restaurantIds", arrayContains: restaurantId)
+          .where("restaurantIDs", arrayContains: restaurantId)
           .get()
           .then((result) {
         List<OrderModel> orders = [];
-
         result.docs.forEach((element) {
           orders.add(OrderModel.fromSnapshot(element));
         });

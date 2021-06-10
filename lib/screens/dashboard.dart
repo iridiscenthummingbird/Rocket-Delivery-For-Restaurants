@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery_rest/providers/user.dart';
 import 'package:rocket_delivery_rest/screens/login.dart';
+import 'package:rocket_delivery_rest/screens/orders.dart';
 import 'package:rocket_delivery_rest/screens/products.dart';
 import 'package:rocket_delivery_rest/services/screen_navigation.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -48,7 +49,7 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
-                    //changeScreen(context, OrdersScreen());
+                    changeScreen(context, OrdersScreen());
                   },
                   leading: Icon(Icons.bookmark_border),
                   title: Text("Orders"),
@@ -184,7 +185,7 @@ class DashboardScreen extends StatelessWidget {
                           ]),
                       child: ListTile(
                         onTap: () {
-                          //changeScreen(context, OrdersScreen());
+                          changeScreen(context, OrdersScreen());
                         },
                         title: Text(
                           "Orders",

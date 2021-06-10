@@ -18,7 +18,7 @@ class OrderModel {
   double get total => _total;
   int get createdAt => _createdAt;
 
-  List<CartItemModel> cart;
+  List cart = [];
 
   OrderModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data();
@@ -33,9 +33,9 @@ class OrderModel {
     cart = data["cart"];
   }
 
-  List<CartItemModel> _convertCartItems(List cart) {
+  List<CartItemModel> _convertCartItems(List cartTmp) {
     List<CartItemModel> convertedCart = [];
-    for (Map cartItem in cart) {
+    for (Map cartItem in cartTmp) {
       convertedCart.add(CartItemModel.fromMap(cartItem));
     }
     return convertedCart;
