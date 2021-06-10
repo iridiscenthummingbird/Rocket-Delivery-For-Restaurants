@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery_rest/providers/user.dart';
 import 'package:rocket_delivery_rest/screens/login.dart';
+import 'package:rocket_delivery_rest/screens/products.dart';
 import 'package:rocket_delivery_rest/services/screen_navigation.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -11,6 +12,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
+    userProvider.reload();
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -53,7 +55,7 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
-                    //changeScreen(context, ProductsScreen());
+                    changeScreen(context, ProductsScreen());
                   },
                   leading: Icon(Icons.fastfood),
                   title: Text("Products"),
@@ -212,7 +214,7 @@ class DashboardScreen extends StatelessWidget {
                         ]),
                     child: ListTile(
                       onTap: () {
-                        //changeScreen(context, ProductsScreen());
+                        changeScreen(context, ProductsScreen());
                       },
                       title: Text("Products", style: TextStyle(fontSize: 24)),
                       trailing: Text(userProvider.products.length.toString(),
