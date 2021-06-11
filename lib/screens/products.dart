@@ -11,7 +11,7 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-
+    userProvider.reload();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {

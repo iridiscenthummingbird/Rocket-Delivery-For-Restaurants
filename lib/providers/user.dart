@@ -26,8 +26,6 @@ class UserProvider with ChangeNotifier {
   ProductServices _productServices = ProductServices();
   User _user;
   RestaurantModel _restaurant;
-  double _avgPrice = 0;
-  double _restaurantRating = 0;
 
   List<ProductModel> products = <ProductModel>[];
   final formkey = GlobalKey<FormState>();
@@ -42,8 +40,6 @@ class UserProvider with ChangeNotifier {
   Status get status => _status;
   User get user => _user;
   RestaurantModel get restaurant => _restaurant;
-  double get avgPrice => _avgPrice;
-  double get restaurantRating => _restaurantRating;
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -51,6 +47,7 @@ class UserProvider with ChangeNotifier {
 
   UserProvider.initialize() : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onStateChanged);
+    reload();
   }
 
   Future<void> _onStateChanged(User firebaseUser) async {
@@ -72,7 +69,6 @@ class UserProvider with ChangeNotifier {
     });
     await loadProductsByRestaurant(restaurantId: user.uid);
     await getOrders();
-    await getAvgPrice();
     notifyListeners();
   }
 
@@ -108,6 +104,7 @@ class UserProvider with ChangeNotifier {
           "avgPrice": 0.0.toString(),
           "image": "",
           "rating": 0.0.toString(),
+          "rates": []
         });
       });
       return true;
@@ -131,17 +128,6 @@ class UserProvider with ChangeNotifier {
     name.text = "";
     password.text = "";
     email.text = "";
-  }
-
-  getAvgPrice() async {
-    if (products.length != 0) {
-      double amountSum = 0;
-      for (ProductModel product in products) {
-        amountSum = product.price;
-      }
-      _avgPrice = amountSum / products.length;
-    }
-    notifyListeners();
   }
 
   getOrders() async {
@@ -184,13 +170,9 @@ class UserProvider with ChangeNotifier {
       String imageUrl =
           await _uploadImageFile(imageFile: restaurantImage, imageFileName: id);
 
-      _firestore.collection('restaurants').doc(user.uid).set({
+      _firestore.collection('restaurants').doc(user.uid).update({
         'name': name.text,
         "image": imageUrl,
-        'email': user.email,
-        'id': restaurant.id,
-        "avgPrice": restaurant.avgPrice.toString(),
-        "rating": restaurant.rating.toString(),
       });
       return true;
     } catch (e) {
@@ -203,5 +185,21 @@ class UserProvider with ChangeNotifier {
     restaurantImage = null;
     restaurantImageFileName = null;
     name = null;
+  }
+
+  changeAvgPrive(String val) {
+    double sum = double.parse(val);
+    if (products != null) {
+      products.forEach((element) {
+        sum += element.price;
+      });
+      sum = sum / (products.length + 1);
+    }
+
+    _firestore
+        .collection('restaurants')
+        .doc(user.uid)
+        .update({"avgPrice": sum.toStringAsFixed(1)});
+    reload();
   }
 }

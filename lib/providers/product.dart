@@ -43,7 +43,8 @@ class ProductProvider with ChangeNotifier {
         "restaurant": restaurant,
         "restaurantId": restaurantId,
         "description": description.text.trim(),
-        "category": category
+        "category": category,
+        "rates": []
       };
       _productServices.createProduct(data: data);
       //TODO change avgPrice

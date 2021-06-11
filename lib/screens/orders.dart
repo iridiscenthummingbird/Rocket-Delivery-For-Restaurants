@@ -16,7 +16,10 @@ class OrdersScreen extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
           elevation: 0.0,
-          title: Text("Orders"),
+          title: Text(
+            "Orders",
+            style: TextStyle(color: Colors.black),
+          ),
           leading: IconButton(
               icon: Icon(Icons.close),
               onPressed: () {

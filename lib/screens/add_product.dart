@@ -236,7 +236,7 @@ class AddProductScreen extends StatelessWidget {
                           offset: Offset(2, 7),
                           blurRadius: 4)
                     ]),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () async {
                     if (!await productProvider.uploadProduct(
                         category: categoryProvider.selectedCategory,
@@ -247,11 +247,12 @@ class AddProductScreen extends StatelessWidget {
                         duration: Duration(seconds: 3),
                       ));
                     } else {
-                      productProvider.clear();
+                      //productProvider.clear();
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("Upload completed"),
                         duration: Duration(seconds: 3),
                       ));
+                      userProvider.changeAvgPrive(productProvider.price.text);
                       userProvider.loadProductsByRestaurant(
                           restaurantId: userProvider.restaurant.id);
                       await userProvider.reload();

@@ -139,7 +139,7 @@ class DashboardScreen extends StatelessWidget {
                       child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            "Average Price: \$ ${userProvider.avgPrice}",
+                            "Average Price: \$ ${userProvider.restaurant.avgPrice}",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -168,7 +168,7 @@ class DashboardScreen extends StatelessWidget {
                                     size: 20,
                                   ),
                                 ),
-                                Text("${userProvider.restaurantRating}"),
+                                Text("${userProvider.restaurant.rating}"),
                               ],
                             ),
                           ),
